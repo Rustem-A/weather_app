@@ -10,7 +10,7 @@ class OpacityAnimation extends StatelessWidget {
       alignment: Alignment.center,
       child: TweenAnimationBuilder(
         tween: Tween<double>(begin: 0.0, end: 1.0),
-        duration: Duration(seconds: 5),
+        duration: Duration(seconds: 1),
         builder: (BuildContext context, double opacity, Widget child) {
           return Opacity(
             opacity: opacity,

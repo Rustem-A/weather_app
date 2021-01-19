@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../models/Weather.dart';
 
 class Controller extends GetxController {
-  var opacity = 0.0.obs;
-  makeZero() => opacity.value = 0.0;
+  var weather = Weather().obs;
+  setWeatherState(weather2) => weather = weather2;
 }
