@@ -1,21 +1,36 @@
 import 'package:flutter/foundation.dart';
 
 class Weather {
-  String name;
+  Map<String, dynamic> current;
+  DateTime lastUpdate;
+  Map<String, dynamic> tommorow;
+  String tommorowDesc;
+  String todayDesc;
+  var tomDate;
 
-  // Weather({this.date, this.name, this.temp, this.main, this.icon});
-  Weather({this.name});
+  Weather({
+    this.current,
+    this.lastUpdate,
+    this.tommorow,
+    this.tommorowDesc,
+    this.tomDate,
+    this.todayDesc,
+  });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-    
-    debugPrint(json['timezone']);
     return Weather(
-      // date: new DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000,
-      //     isUtc: false),
-      name: json['timezone'],
-      // temp: json['main']['temp'].toDouble(),
-      // main: json['weather'][0]['main'],
-      // icon: json['weather'][0]['icon'],
+      current: json['current'],
+      lastUpdate: new DateTime.fromMillisecondsSinceEpoch(
+        json['current']['dt'] * 1000,
+        isUtc: false,
+      ),
+      todayDesc: json['current']['weather'][0]['main'],
+      tommorow: json['daily'][1],
+      tomDate: new DateTime.fromMillisecondsSinceEpoch(
+        json['daily'][1]['dt'] * 1000,
+        isUtc: false,
+      ),
+      tommorowDesc: json['daily'][1]['weather'][0]['main'],
     );
   }
 }

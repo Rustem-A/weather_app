@@ -64,12 +64,13 @@ class MainScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text('10:00 pm',
+                          Obx(() => Text(
+                              "обновленно в ${c.weather.value.lastUpdate.hour}:${c.weather.value.lastUpdate.minute}",
                               style: TextStyle(
                                 color: Color.fromRGBO(241, 104, 112, 0.4),
-                                fontSize: 17,
+                                fontSize: 13,
                                 fontWeight: FontWeight.bold,
-                              ))
+                              ))),
                         ],
                       ),
                     ),
@@ -78,14 +79,14 @@ class MainScreen extends StatelessWidget {
                         color: Colors.white,
                         child: Row(
                           children: [
-                            Text(
-                              '10°',
-                              style: TextStyle(
-                                color: Color.fromRGBO(237, 56, 66, 0.7),
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            Obx(() => Text(
+                                  "${c.weather.value.current['temp']}",
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(237, 56, 66, 0.7),
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
                             Text(
                               ' | ',
                               style: TextStyle(
@@ -93,18 +94,18 @@ class MainScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
-                            Text(
-                              'Rain',
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            Obx(() => Text(
+                                  '${c.weather.value.todayDesc}',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
                           ],
                         )),
                     Container(
                       child: Image.asset(
-                        'assets/rain.png',
+                        "assets/${c.weather.value.todayDesc}.png",
                         height: size.width * 0.62,
                       ),
                     ),
@@ -131,7 +132,7 @@ class MainScreen extends StatelessWidget {
                       ),
                       Container(
                         child: Image.asset(
-                          'assets/sun.png',
+                          'assets/Snow.png',
                           height: size.width * 0.32,
                         ),
                       ),
@@ -140,14 +141,14 @@ class MainScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              '24°',
-                              style: TextStyle(
-                                color: Color.fromRGBO(237, 56, 66, 0.7),
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            Obx(() => Text(
+                                  '${c.weather.value.tommorow['temp']['day']}',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(237, 56, 66, 0.7),
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
                             Text(
                               ' | ',
                               style: TextStyle(
@@ -155,13 +156,13 @@ class MainScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
-                            Text(
-                              'Sun',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            Obx(() => Text(
+                                  '${c.weather.value.tommorowDesc}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
                           ],
                         ),
                       )
@@ -170,56 +171,15 @@ class MainScreen extends StatelessWidget {
                 ),
                 Container(
                   width: size.width / 2,
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 15, bottom: 15),
-                        child: Text(
-                          'Tomorrow',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Container(
+                      padding: EdgeInsets.only(top: 67, bottom: 67),
+                      child: Image.asset(
+                        'assets/week.png',
+                        height: size.width * 0.32,
                       ),
-                      Container(
-                        child: Image.asset(
-                          'assets/snow.png',
-                          height: size.width * 0.32,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '-17°',
-                              style: TextStyle(
-                                color: Color.fromRGBO(237, 56, 66, 0.7),
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              ' | ',
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            Text(
-                              'Snow',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                    ),
                   ),
                 ),
               ],
