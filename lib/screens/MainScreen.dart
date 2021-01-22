@@ -1,18 +1,73 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/Controller.dart';
 import '../services/GetWeatherFetch.dart';
 import 'dart:core';
 import '../models/Weather.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter/foundation.dart';
+import '../screens/SevenDaysScreen.dart';
 
 class MainScreen extends StatelessWidget {
+  var pos;
   Size size = Get.mediaQuery.size;
+  showAlertDialog(BuildContext context, main) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("My title"),
+      content: Text("$main"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permantly denied, we cannot request permissions.');
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return Future.error(
+            'Location permissions are denied (actual value: $permission).');
+      }
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Controller c = Get.put(Controller()); // State controller
-    GetWeatherFetch.getWeather(
-        lat: 55.751244,
-        lon: 37.618423); // geting and writing answer like Json in state
+    final Controller c = Get.find();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -34,7 +89,18 @@ class MainScreen extends StatelessWidget {
               ),
               tooltip: 'Show Snackbar',
               padding: EdgeInsets.only(right: 30),
-              onPressed: null)
+              onPressed: () async {
+                pos = await Geolocator.getCurrentPosition(
+                    desiredAccuracy: LocationAccuracy.high);
+                if (pos != null) {
+                  showAlertDialog(context, pos.longitude.runtimeType);
+                  debugPrint("${pos.longitude.runtimeType}");
+                }
+                // c.latitude.value = pos.latitude;
+                // c.longitude.value = pos.longitude;
+                // GetWeatherFetch.getWeather(
+                //     lat: pos.latitude, lon: pos.longitude);
+              })
         ],
       ),
       body: Column(
@@ -80,7 +146,7 @@ class MainScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Obx(() => Text(
-                                  "${c.weather.value.current['temp']}",
+                                  "${c.weather.value.current['temp']}°",
                                   style: TextStyle(
                                     color: Color.fromRGBO(237, 56, 66, 0.7),
                                     fontSize: 40,
@@ -105,7 +171,7 @@ class MainScreen extends StatelessWidget {
                         )),
                     Container(
                       child: Image.asset(
-                        "assets/${c.weather.value.todayDesc}.png",
+                        "assets/Rain.png",
                         height: size.width * 0.62,
                       ),
                     ),
@@ -142,7 +208,7 @@ class MainScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Obx(() => Text(
-                                  '${c.weather.value.tommorow['temp']['day']}',
+                                  '${c.weather.value.tommorow['temp']['day']}°',
                                   style: TextStyle(
                                     color: Color.fromRGBO(237, 56, 66, 0.7),
                                     fontSize: 30,
@@ -172,7 +238,9 @@ class MainScreen extends StatelessWidget {
                 Container(
                   width: size.width / 2,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(SevenDaysScreen());
+                    },
                     child: Container(
                       padding: EdgeInsets.only(top: 67, bottom: 67),
                       child: Image.asset(
@@ -198,8 +266,3 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-
-// Center(child: Obx(() => Text("Кликов: ${c.weather.value.name}"))),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () => {c.weather(Weather(name: 'João'))},
-//       ),

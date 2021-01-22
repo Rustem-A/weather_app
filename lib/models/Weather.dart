@@ -7,6 +7,7 @@ class Weather {
   String tommorowDesc;
   String todayDesc;
   var tomDate;
+  var daily;
 
   Weather({
     this.current,
@@ -15,6 +16,7 @@ class Weather {
     this.tommorowDesc,
     this.tomDate,
     this.todayDesc,
+    this.daily,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class Weather {
         isUtc: false,
       ),
       tommorowDesc: json['daily'][1]['weather'][0]['main'],
+      daily: json['daily'],
     );
   }
 }
