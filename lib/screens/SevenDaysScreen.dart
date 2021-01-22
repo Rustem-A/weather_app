@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../controllers/Controller.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/foundation.dart';
+import '../services/getCurImage.dart';
 
 class SevenDaysScreen extends StatelessWidget {
   Controller c = Get.find();
@@ -35,7 +36,7 @@ class SevenDaysScreen extends StatelessWidget {
                       "${getDate(c.weather.value.daily[i]['dt'])}",
                       style: TextStyle(
                         color: Color.fromRGBO(237, 56, 66, 0.7),
-                        fontSize: 25,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -59,7 +60,7 @@ class SevenDaysScreen extends StatelessWidget {
               ],
             )),
             Image.asset(
-              "assets/Rain.png",
+              "assets/${getCurImage(c.weather.value.daily[i]['weather'][0]['main'])}.png",
               height: size.width * 0.62,
             ),
           ],

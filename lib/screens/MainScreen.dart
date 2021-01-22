@@ -9,6 +9,7 @@ import '../models/Weather.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/foundation.dart';
 import '../screens/SevenDaysScreen.dart';
+import '../services/getCurImage.dart';
 
 class MainScreen extends StatelessWidget {
   var pos;
@@ -41,15 +42,22 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.find();
-    String curCity = c.weather.value.city;
+    Widget curCity = Obx(() => Text(
+          "${c.weather.value.city}",
+          style: TextStyle(
+            fontSize: 30,
+          ),
+        ));
+
+    // Obx(() => {
+    //   () => {
+    //     String qwe = '';
+    //     return qwe;
+    //   }
+    // });
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() => Text(
-              "${curCity.substring(curCity.indexOf('/') + 1)}",
-              style: TextStyle(
-                fontSize: 30,
-              ),
-            )),
+        title: curCity,
         actions: <Widget>[
           IconButton(
               icon: const Icon(
@@ -68,10 +76,6 @@ class MainScreen extends StatelessWidget {
                   showAlertDialog(context, pos.longitude);
                   debugPrint("${pos.longitude.runtimeType}");
                 }
-                // c.latitude.value = pos.latitude;
-                // c.longitude.value = pos.longitude;
-                // GetWeatherFetch.getWeather(
-                //     lat: pos.latitude, lon: pos.longitude);
               })
         ],
       ),
@@ -143,7 +147,7 @@ class MainScreen extends StatelessWidget {
                         )),
                     Container(
                       child: Image.asset(
-                        "assets/Rain.png",
+                        "assets/${getCurImage(c.weather.value.todayDesc)}.png",
                         height: size.width * 0.62,
                       ),
                     ),
@@ -170,7 +174,7 @@ class MainScreen extends StatelessWidget {
                       ),
                       Container(
                         child: Image.asset(
-                          'assets/Snow.png',
+                          "assets/${getCurImage(c.weather.value.tommorowDesc)}.png",
                           height: size.width * 0.32,
                         ),
                       ),

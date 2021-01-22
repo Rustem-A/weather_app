@@ -23,7 +23,7 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
-      city: json['timezone'],
+      city: json['timezone'].substring(json['timezone'].indexOf('/') + 1),
       current: json['current'],
       lastUpdate: new DateTime.fromMillisecondsSinceEpoch(
         json['current']['dt'] * 1000,
@@ -31,11 +31,11 @@ class Weather {
       ),
       todayDesc: json['current']['weather'][0]['main'],
       tommorow: json['daily'][1],
+      tommorowDesc: json['daily'][1]['weather'][0]['main'],
       tomDate: new DateTime.fromMillisecondsSinceEpoch(
         json['daily'][1]['dt'] * 1000,
         isUtc: false,
       ),
-      tommorowDesc: json['daily'][1]['weather'][0]['main'],
       daily: json['daily'],
     );
   }
