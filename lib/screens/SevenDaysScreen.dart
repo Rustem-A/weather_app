@@ -22,7 +22,6 @@ class SevenDaysScreen extends StatelessWidget {
     for (var i = 1; i <= 7; i++) {
       res.add(Container(
         height: 180,
-        // color: Colors.amber[600],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -32,7 +31,6 @@ class SevenDaysScreen extends StatelessWidget {
               children: [
                 Obx(
                   () => Container(
-                    // padding: EdgeInsets.only(top: 20),
                     child: Text(
                       "${getDate(c.weather.value.daily[i]['dt'])}",
                       style: TextStyle(

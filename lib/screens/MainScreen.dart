@@ -38,54 +38,24 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permantly denied, we cannot request permissions.');
-    }
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission != LocationPermission.whileInUse &&
-          permission != LocationPermission.always) {
-        return Future.error(
-            'Location permissions are denied (actual value: $permission).');
-      }
-    }
-
-    return await Geolocator.getCurrentPosition();
-  }
-
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.find();
+    String curCity = c.weather.value.city;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        toolbarHeight: 70,
+        title: Obx(() => Text(
+              "${curCity.substring(curCity.indexOf('/') + 1)}",
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            )),
         actions: <Widget>[
           IconButton(
               icon: const Icon(
-                Icons.search_sharp,
-                size: 30,
-                color: Colors.grey,
-              ),
-              padding: EdgeInsets.only(right: 20),
-              onPressed: null),
-          IconButton(
-              icon: const Icon(
                 Icons.gps_fixed,
-                size: 30,
-                color: Colors.grey,
+                size: 32,
+                color: Colors.red,
               ),
               tooltip: 'Show Snackbar',
               padding: EdgeInsets.only(right: 30),
@@ -93,7 +63,9 @@ class MainScreen extends StatelessWidget {
                 pos = await Geolocator.getCurrentPosition(
                     desiredAccuracy: LocationAccuracy.high);
                 if (pos != null) {
-                  showAlertDialog(context, pos.longitude.runtimeType);
+                  GetWeatherFetch.getWeather(
+                      lat: pos.latitude, lon: pos.longitude);
+                  showAlertDialog(context, pos.longitude);
                   debugPrint("${pos.longitude.runtimeType}");
                 }
                 // c.latitude.value = pos.latitude;

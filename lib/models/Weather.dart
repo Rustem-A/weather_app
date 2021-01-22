@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Weather {
+  String city;
   Map<String, dynamic> current;
   DateTime lastUpdate;
   Map<String, dynamic> tommorow;
@@ -10,6 +11,7 @@ class Weather {
   var daily;
 
   Weather({
+    this.city,
     this.current,
     this.lastUpdate,
     this.tommorow,
@@ -21,6 +23,7 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
+      city: json['timezone'],
       current: json['current'],
       lastUpdate: new DateTime.fromMillisecondsSinceEpoch(
         json['current']['dt'] * 1000,
