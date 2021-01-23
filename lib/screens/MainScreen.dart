@@ -49,12 +49,6 @@ class MainScreen extends StatelessWidget {
           ),
         ));
 
-    // Obx(() => {
-    //   () => {
-    //     String qwe = '';
-    //     return qwe;
-    //   }
-    // });
     return Scaffold(
       appBar: AppBar(
         title: curCity,
@@ -218,7 +212,7 @@ class MainScreen extends StatelessWidget {
                       Get.to(SevenDaysScreen());
                     },
                     child: Container(
-                      padding: EdgeInsets.only(top: 67, bottom: 67),
+                      // padding: EdgeInsets.only(top: 67, bottom: 67),
                       child: Image.asset(
                         'assets/week.png',
                         height: size.width * 0.32,
@@ -237,7 +231,7 @@ class MainScreen extends StatelessWidget {
           top:
               BorderSide(width: 1.0, color: Color.fromRGBO(127, 127, 127, 0.3)),
         )),
-        height: 60,
+        height: 50,
       ),
     );
   }
