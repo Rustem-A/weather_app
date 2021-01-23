@@ -59,7 +59,7 @@ class MainScreen extends StatelessWidget {
                 size: 32,
                 color: Colors.red,
               ),
-              tooltip: 'Show Snackbar',
+              tooltip: 'Get Geololocation',
               padding: EdgeInsets.only(right: 30),
               onPressed: () async {
                 pos = await Geolocator.getCurrentPosition(
@@ -67,8 +67,10 @@ class MainScreen extends StatelessWidget {
                 if (pos != null) {
                   GetWeatherFetch.getWeather(
                       lat: pos.latitude, lon: pos.longitude);
-                  showAlertDialog(context, pos.longitude);
-                  debugPrint("${pos.longitude.runtimeType}");
+                }
+                if (pos != null) {
+                  GetWeatherFetch.getWeather(
+                      lat: pos.latitude, lon: pos.longitude);
                 }
               })
         ],
@@ -140,11 +142,10 @@ class MainScreen extends StatelessWidget {
                           ],
                         )),
                     Container(
-                      child: Image.asset(
-                        "assets/${getCurImage(c.weather.value.todayDesc)}.png",
-                        height: size.width * 0.62,
-                      ),
-                    ),
+                        child: Obx(() => Image.asset(
+                              "assets/${getCurImage(c.weather.value.todayDesc)}.png",
+                              // height: size.width * 0.32,
+                            ))),
                   ],
                 ),
               )),
@@ -167,11 +168,10 @@ class MainScreen extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        child: Image.asset(
-                          "assets/${getCurImage(c.weather.value.tommorowDesc)}.png",
-                          height: size.width * 0.32,
-                        ),
-                      ),
+                          child: Obx(() => Image.asset(
+                                "assets/${getCurImage(c.weather.value.tommorowDesc)}.png",
+                                // height: size.width * 0.32,
+                              ))),
                       Container(
                         padding: EdgeInsets.only(top: 15),
                         child: Row(

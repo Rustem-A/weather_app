@@ -1,5 +1,5 @@
 String getCurImage(weatherName) {
-  switch (weatherName) {
+  switch (weatherName.toString()) {
     case 'Sun':
       return 'Sun';
       break;
