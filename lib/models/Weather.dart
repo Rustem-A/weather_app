@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Weather {
   String city;
   Map<String, dynamic> current;

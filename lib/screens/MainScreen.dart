@@ -1,47 +1,19 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/Controller.dart';
-import '../services/GetWeatherFetch.dart';
+import '../services/getWeatherFetch.dart';
 import 'dart:core';
-import '../models/Weather.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter/foundation.dart';
 import '../screens/SevenDaysScreen.dart';
 import '../services/getCurImage.dart';
 
 class MainScreen extends StatelessWidget {
-  var pos;
-  Size size = Get.mediaQuery.size;
-  showAlertDialog(BuildContext context, main) {
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {},
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("My title"),
-      content: Text("$main"),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  final Size size = Get.mediaQuery.size;
 
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.find();
+
     Widget curCity = Obx(() => Text(
           "${c.weather.value.city}",
           style: TextStyle(
@@ -62,15 +34,10 @@ class MainScreen extends StatelessWidget {
               tooltip: 'Get Geololocation',
               padding: EdgeInsets.only(right: 30),
               onPressed: () async {
-                pos = await Geolocator.getCurrentPosition(
+                var pos = await Geolocator.getCurrentPosition(
                     desiredAccuracy: LocationAccuracy.high);
                 if (pos != null) {
-                  GetWeatherFetch.getWeather(
-                      lat: pos.latitude, lon: pos.longitude);
-                }
-                if (pos != null) {
-                  GetWeatherFetch.getWeather(
-                      lat: pos.latitude, lon: pos.longitude);
+                  getWeatherFetch(lat: pos.latitude, lon: pos.longitude);
                 }
               })
         ],
@@ -144,7 +111,6 @@ class MainScreen extends StatelessWidget {
                     Container(
                         child: Obx(() => Image.asset(
                               "assets/${getCurImage(c.weather.value.todayDesc)}.png",
-                              // height: size.width * 0.32,
                             ))),
                   ],
                 ),
@@ -170,7 +136,6 @@ class MainScreen extends StatelessWidget {
                       Container(
                           child: Obx(() => Image.asset(
                                 "assets/${getCurImage(c.weather.value.tommorowDesc)}.png",
-                                // height: size.width * 0.32,
                               ))),
                       Container(
                         padding: EdgeInsets.only(top: 15),
@@ -212,7 +177,6 @@ class MainScreen extends StatelessWidget {
                       Get.to(SevenDaysScreen());
                     },
                     child: Container(
-                      // padding: EdgeInsets.only(top: 67, bottom: 67),
                       child: Image.asset(
                         'assets/week.png',
                         height: size.width * 0.32,

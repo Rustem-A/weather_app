@@ -6,8 +6,9 @@ import 'package:flutter/foundation.dart';
 import '../services/getCurImage.dart';
 
 class SevenDaysScreen extends StatelessWidget {
-  Controller c = Get.find();
-  Size size = Get.mediaQuery.size;
+  final Controller c = Get.find();
+  final Size size = Get.mediaQuery.size;
+
   String getDate(timestamp) {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(
       timestamp * 1000,
@@ -74,7 +75,6 @@ class SevenDaysScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var daily = c.weather.value.daily;
     return Scaffold(
       appBar: AppBar(
         actions: [],
