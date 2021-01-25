@@ -53,7 +53,7 @@ class MainScreen extends StatelessWidget {
               )),
               height: size.height / 2,
               child: Container(
-                color: Colors.white,
+                // color: Colors.white,
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -64,11 +64,6 @@ class MainScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Today',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
                           ),
                           Obx(() => Text(
                               "обновленно в ${new DateFormat.Hm().format(c.weather.value.lastUpdate)}",
@@ -82,7 +77,7 @@ class MainScreen extends StatelessWidget {
                     ),
                     Container(
                         padding: EdgeInsets.only(left: 30),
-                        color: Colors.white,
+                        // color: Colors.white,
                         child: Row(
                           children: [
                             Obx(() => Text(
@@ -128,7 +123,7 @@ class MainScreen extends StatelessWidget {
                         child: Text(
                           'Tomorrow',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Theme.of(context).primaryColorDark,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -171,19 +166,26 @@ class MainScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  width: size.width / 2,
-                  child: InkWell(
-                    onTap: () {
-                      Get.to(SevenDaysScreen());
-                    },
-                    child: Container(
-                      child: Image.asset(
-                        'assets/week.png',
-                        height: size.width * 0.32,
+                Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Theme.of(context).primaryColor,
+                        width: size.width / 2,
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(SevenDaysScreen());
+                          },
+                          child: Container(
+                            child: Image.asset(
+                              'assets/week.png',
+                              scale: 1.4,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    )
+                  ],
                 ),
               ],
             ),

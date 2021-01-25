@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'screens/InitialAnimateLogo.dart';
 import './controllers/Controller.dart';
+import './themes/themes.dart';
 
 void main() {
   runApp(WeatherApp());
@@ -15,7 +16,9 @@ class WeatherApp extends StatelessWidget {
     return GetMaterialApp(
       title: "WeatherApp",
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      theme: lighttheme(),
+      darkTheme: darktheme(),
+      themeMode: ThemeMode.light,
       home: InitialAnimateLogo(),
     );
   }
