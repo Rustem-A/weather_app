@@ -6,6 +6,7 @@ import 'dart:core';
 import 'package:geolocator/geolocator.dart';
 import '../screens/SevenDaysScreen.dart';
 import '../services/getCurImage.dart';
+import 'package:intl/intl.dart';
 
 class MainScreen extends StatelessWidget {
   final Size size = Get.mediaQuery.size;
@@ -70,7 +71,7 @@ class MainScreen extends StatelessWidget {
                             ),
                           ),
                           Obx(() => Text(
-                              "обновленно в ${c.weather.value.lastUpdate.hour}:${c.weather.value.lastUpdate.minute}",
+                              "обновленно в ${new DateFormat.Hm().format(c.weather.value.lastUpdate)}",
                               style: TextStyle(
                                 color: Color.fromRGBO(241, 104, 112, 0.4),
                                 fontSize: 13,
