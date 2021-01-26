@@ -165,7 +165,18 @@ class MainScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Theme.of(context).primaryColor,
+                        decoration: BoxDecoration(
+                          gradient: RadialGradient(
+                            center: Alignment.center, // near the top right
+                            radius: 0.6,
+                            colors: [
+                              const Color.fromRGBO(
+                                  111, 111, 111, 1), // yellow sun
+                              const Color.fromRGBO(75, 75, 75, 1), // blue sky
+                            ],
+                            stops: [0.0, 0.9],
+                          ),
+                        ),
                         width: size.width / 2,
                         child: InkWell(
                           onTap: () {

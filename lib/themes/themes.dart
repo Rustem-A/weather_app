@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData darktheme() {
+  var commonColor = Color.fromRGBO(75, 75, 75, 1);
   return ThemeData(
     textTheme: TextTheme(
       headline4: TextStyle(
@@ -9,13 +10,13 @@ ThemeData darktheme() {
       ),
     ),
     primaryColorDark: Colors.white,
-    primaryColor: Colors.grey,
+    primaryColor: commonColor,
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-      color: Color(0xff212224),
+      color: commonColor,
       centerTitle: true,
     ),
-    scaffoldBackgroundColor: Color(0xff212224),
+    scaffoldBackgroundColor: commonColor,
   );
 }
 
