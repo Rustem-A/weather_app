@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 ThemeData darktheme() {
   return ThemeData(
+    textTheme: TextTheme(
+      headline4: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     primaryColorDark: Colors.white,
     primaryColor: Colors.grey,
     brightness: Brightness.dark,
@@ -15,15 +21,18 @@ ThemeData darktheme() {
 
 ThemeData lighttheme() {
   return ThemeData(
-    primaryColorDark: Color(0xff212224),
+    textTheme: TextTheme(
+      headline4: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+      headline6: TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     primaryColor: Colors.white,
     brightness: Brightness.light,
     appBarTheme: AppBarTheme(
-      textTheme: TextTheme(
-          headline6: TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
-      )),
       color: Colors.white,
       centerTitle: true,
     ),

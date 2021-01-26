@@ -77,9 +77,7 @@ class SevenDaysScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget curCity = Obx(() => Text(
           "${c.weather.value.city}",
-          style: TextStyle(
-            fontSize: 30,
-          ),
+          style: Theme.of(context).textTheme.headline4,
         ));
 
     return Scaffold(

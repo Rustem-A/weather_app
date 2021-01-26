@@ -18,7 +18,7 @@ class WeatherApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lighttheme(),
       darkTheme: darktheme(),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       home: InitialAnimateLogo(),
     );
   }

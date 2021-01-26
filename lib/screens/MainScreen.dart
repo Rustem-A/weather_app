@@ -17,9 +17,7 @@ class MainScreen extends StatelessWidget {
 
     Widget curCity = Obx(() => Text(
           "${c.weather.value.city}",
-          style: TextStyle(
-            fontSize: 30,
-          ),
+          style: Theme.of(context).textTheme.headline4,
         ));
 
     return Scaffold(
@@ -64,6 +62,7 @@ class MainScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Today',
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                           Obx(() => Text(
                               "обновленно в ${new DateFormat.Hm().format(c.weather.value.lastUpdate)}",
@@ -122,11 +121,7 @@ class MainScreen extends StatelessWidget {
                         padding: EdgeInsets.only(top: 15, bottom: 15),
                         child: Text(
                           'Tomorrow',
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColorDark,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                       Container(
@@ -156,7 +151,7 @@ class MainScreen extends StatelessWidget {
                             Obx(() => Text(
                                   '${c.weather.value.tommorowDesc}',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 23,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )),
