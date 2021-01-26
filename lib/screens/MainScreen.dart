@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 
 class MainScreen extends StatelessWidget {
   final Size size = Get.mediaQuery.size;
-
+  var pos;
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.find();
@@ -33,12 +33,23 @@ class MainScreen extends StatelessWidget {
               tooltip: 'Get Geololocation',
               padding: EdgeInsets.only(right: 30),
               onPressed: () async {
-                var pos = await Geolocator.getCurrentPosition(
+                pos = await Geolocator.getCurrentPosition(
                     desiredAccuracy: LocationAccuracy.high);
                 if (pos != null) {
                   getWeatherFetch(lat: pos.latitude, lon: pos.longitude);
                 }
-              })
+              }),
+          IconButton(
+              icon: const Icon(
+                Icons.refresh,
+                size: 32,
+                color: Colors.red,
+              ),
+              tooltip: 'Refresh',
+              padding: EdgeInsets.only(right: 30),
+              onPressed: () {
+                getWeatherFetch(lat: pos.latitude, lon: pos.longitude);
+              }),
         ],
       ),
       body: Column(
@@ -165,18 +176,19 @@ class MainScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                          gradient: RadialGradient(
-                            center: Alignment.center, // near the top right
-                            radius: 0.6,
-                            colors: [
-                              const Color.fromRGBO(
-                                  111, 111, 111, 1), // yellow sun
-                              const Color.fromRGBO(75, 75, 75, 1), // blue sky
-                            ],
-                            stops: [0.0, 0.9],
-                          ),
-                        ),
+                        decoration: Theme.of(context).brightness.index == 0
+                            ? BoxDecoration(
+                                gradient: RadialGradient(
+                                  center: Alignment.center,
+                                  radius: 0.6,
+                                  colors: [
+                                    const Color.fromRGBO(111, 111, 111, 1),
+                                    const Color.fromRGBO(75, 75, 75, 1),
+                                  ],
+                                  stops: [0.0, 0.9],
+                                ),
+                              )
+                            : null,
                         width: size.width / 2,
                         child: InkWell(
                           onTap: () {
