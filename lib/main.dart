@@ -16,8 +16,8 @@ class WeatherApp extends StatelessWidget {
     return GetMaterialApp(
       title: "WeatherApp",
       debugShowCheckedModeBanner: false,
-      theme: lighttheme(),
-      darkTheme: darktheme(),
+      theme: light(),
+      darkTheme: dark(),
       themeMode: ThemeMode.light,
       home: InitialAnimateLogo(),
     );

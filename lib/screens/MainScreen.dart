@@ -21,6 +21,36 @@ class MainScreen extends StatelessWidget {
         ));
 
     return Scaffold(
+      drawer: Drawer(
+        child: SafeArea(
+          child: ListView(
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  'Light Theme',
+                  style: TextStyle(fontSize: 25),
+                ),
+                onTap: () {
+                  Get.changeThemeMode(ThemeMode.light);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Dark Theme',
+                  style: TextStyle(fontSize: 25),
+                ),
+                onTap: () {
+                  Get.changeThemeMode(ThemeMode.dark);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: curCity,
         actions: <Widget>[
@@ -31,7 +61,7 @@ class MainScreen extends StatelessWidget {
                 color: Colors.red,
               ),
               tooltip: 'Get Geololocation',
-              padding: EdgeInsets.only(right: 30),
+              padding: EdgeInsets.only(right: 20),
               onPressed: () async {
                 pos = await Geolocator.getCurrentPosition(
                     desiredAccuracy: LocationAccuracy.high);
@@ -76,10 +106,10 @@ class MainScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           Obx(() => Text(
-                              "обновленно в ${new DateFormat.Hm().format(c.weather.value.lastUpdate)}",
+                              "updated in ${new DateFormat.Hm().format(c.weather.value.lastUpdate)}",
                               style: TextStyle(
                                 color: Color.fromRGBO(241, 104, 112, 0.4),
-                                fontSize: 13,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ))),
                         ],

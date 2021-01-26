@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-ThemeData darktheme() {
+ThemeData dark() {
   var commonColor = Color.fromRGBO(75, 75, 75, 1);
   return ThemeData(
     textTheme: TextTheme(
@@ -20,7 +20,7 @@ ThemeData darktheme() {
   );
 }
 
-ThemeData lighttheme() {
+ThemeData light() {
   return ThemeData(
     textTheme: TextTheme(
       headline4: TextStyle(
